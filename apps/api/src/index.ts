@@ -1,9 +1,8 @@
-import { utils } from "@pmz/utils";
-import { data } from "@pmz/utils/test/data";
 import express from "express";
+import { database } from "@pmz/database";
+import { users } from "@pmz/database/entities";
 
-console.log(utils);
-console.log(data);
+console.log(database);
 
 const app = express();
 

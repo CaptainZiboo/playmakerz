@@ -1,0 +1,49 @@
+{
+  "name": "@pmz/database",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.cts",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
+    },
+    "./entities": {
+      "require": {
+        "types": "./dist/entities/index.d.cts",
+        "default": "./dist/entities/index.cjs"
+      },
+      "import": {
+        "types": "./dist/entities/index.d.mts",
+        "default": "./dist/entities/index.mjs"
+      }
+    }
+  },
+  "scripts": {
+    "dev": "nodemon",
+    "build": "pkgroll",
+    "studio": "drizzle-kit studio",
+    "migration:generate": "drizzle-kit generate:pg",
+    "migration:push": "tsx src/migrate.ts",
+    "migrate": "pnpm run migration:generate && pnpm run migration:push"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.29.1",
+    "@types/pg": "^8.10.9",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.20.7"
+  }
+}

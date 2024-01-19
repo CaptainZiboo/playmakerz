@@ -2,21 +2,24 @@
   "name": "playmakerz",
   "private": true,
   "scripts": {
+    "migrate": "turbo migrate",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@pmz/config": "workspace:^",
     "prettier": "^3.1.0",
-    "turbo": "latest"
+    "tsx": "^4.7.0",
+    "turbo": "latest",
+    "nodemon": "^3.0.2",
+    "pkgroll": "^2.0.1"
   },
   "packageManager": "pnpm@8.9.0",
   "engines": {
     "node": ">=18"
   },
   "dependencies": {
-    "nodemon": "^3.0.2"
+    "dotenv": "^16.3.1"
   }
 }

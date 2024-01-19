@@ -3,5 +3,5 @@
   "watch": ["./src/**", "./node_modules/@pmz/**/dist/**"],
   "ignoreRoot": [],
   "ext": "ts,js",
-  "exec": "pnpm build"
+  "exec": "pnpm build && pnpm studio"
 }
