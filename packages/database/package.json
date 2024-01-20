@@ -31,7 +31,7 @@
     }
   },
   "scripts": {
-    "dev": "nodemon",
+    "dev": "nodemon -C",
     "build": "pkgroll",
     "studio": "drizzle-kit studio",
     "migration:generate": "drizzle-kit generate:pg",
