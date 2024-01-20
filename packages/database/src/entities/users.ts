@@ -1,10 +1,12 @@
 import { relations } from "drizzle-orm";
-import { pgTable, serial } from "drizzle-orm/pg-core";
+import { pgTable, serial, varchar } from "drizzle-orm/pg-core";
 import { matchRoundsToPlayers } from "./match-rounds.players.js";
 import { teamsToPlayers } from "./teams.players.js";
 
 export const users = pgTable("users", {
   _id: serial("_id").primaryKey(),
+  username: varchar("username").notNull(),
+  password: varchar("password").notNull(),
 });
 
 export const userRelations = relations(users, ({ one, many }) => ({

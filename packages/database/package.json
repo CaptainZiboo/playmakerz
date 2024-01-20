@@ -1,5 +1,5 @@
 {
-  "name": "@pmz/database",
+  "name": "@playmakerz/database",
   "version": "0.0.0",
   "type": "module",
   "files": [
@@ -39,8 +39,8 @@
     "migrate": "pnpm run migration:generate && pnpm run migration:push"
   },
   "dependencies": {
-    "drizzle-orm": "^0.29.1",
     "@types/pg": "^8.10.9",
+    "drizzle-orm": "^0.29.1",
     "pg": "^8.11.3"
   },
   "devDependencies": {

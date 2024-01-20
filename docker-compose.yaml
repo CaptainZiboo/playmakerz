@@ -12,7 +12,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=root
-      - POSTGRES_DB=test
+      - POSTGRES_DB=playmakerz
 
   adminer:
     image: adminer

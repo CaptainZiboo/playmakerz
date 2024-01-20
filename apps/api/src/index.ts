@@ -1,15 +1,24 @@
-import express from "express";
-import { database } from "@pmz/database";
-import { users } from "@pmz/database/entities";
+import Koa from "koa";
+import { koaBody } from "koa-body";
+/* import { authRouter } from "./routes/auth.js"; */
+import { db_client } from "@playmakerz/database";
 
-console.log(database);
+const app = new Koa();
 
-const app = express();
+const start = async () => {
+  await db_client.connect();
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+  console.log("Connected to database");
 
-app.listen(3000, () => {
-  console.log("Listening on port 3000");
-});
+  app.use(koaBody());
+
+  app.use(async (ctx) => {
+    ctx.body = "Hello World";
+  });
+
+  /* app.use(authRouter.routes()); */
+
+  app.listen(3000);
+};
+
+start();

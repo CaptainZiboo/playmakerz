@@ -6,7 +6,7 @@ import "dotenv/config";
 const { Pool } = postgres;
 
 const pool = new Pool({
-  connectionString: "postgres://root:password@localhost:5432/test",
+  connectionString: "postgres://root:password@localhost:5432/playmakerz",
 });
 
 const database = drizzle(pool);

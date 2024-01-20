@@ -6,7 +6,7 @@ const config: Config = {
   out: "./migrations",
   driver: "pg",
   dbCredentials: {
-    connectionString: "postgres://root:password@localhost:5432/test",
+    connectionString: "postgres://root:password@localhost:5432/playmakerz",
   },
 };
 
