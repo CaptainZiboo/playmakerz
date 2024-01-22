@@ -1,7 +1,7 @@
 import Koa from "koa";
 import { koaBody } from "koa-body";
-/* import { authRouter } from "./routes/auth.js"; */
 import { db_client } from "@playmakerz/database";
+import { router } from "./routes/index.js";
 
 const app = new Koa();
 
@@ -12,11 +12,7 @@ const start = async () => {
 
   app.use(koaBody());
 
-  app.use(async (ctx) => {
-    ctx.body = "Hello World";
-  });
-
-  /* app.use(authRouter.routes()); */
+  app.use(router.routes());
 
   app.listen(3000);
 };

@@ -5,7 +5,7 @@ import { teamsToPlayers } from "./teams.players.js";
 
 export const users = pgTable("users", {
   _id: serial("_id").primaryKey(),
-  username: varchar("username").notNull(),
+  email: varchar("username").notNull(),
   password: varchar("password").notNull(),
 });
 
