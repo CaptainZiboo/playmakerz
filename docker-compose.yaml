@@ -2,7 +2,8 @@ version: '3'
 
 services:
 
-  db: 
+  postgres.main: 
+    container_name: postgres.main
     image: postgres
     restart: always
     volumes:
@@ -20,9 +21,11 @@ services:
       
   keycloak:
     image: quay.io/keycloak/keycloak:23.0.4
-    restart: never
-    command: start
+    restart: no
+    command: start-dev
     depends_on:
-      - db
+      - postgres.m
     env_file:
       - .env
+    ports:
+      - 8081:8080
