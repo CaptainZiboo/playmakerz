@@ -9,13 +9,20 @@ services:
       - ./data:/var/lib/postgresql/data
     ports:
       - 5432:5432
-    environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_USER=root
-      - POSTGRES_DB=playmakerz
+    env_file:
+      - .env
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
+      
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0.4
+    restart: never
+    command: start
+    depends_on:
+      - db
+    env_file:
+      - .env
