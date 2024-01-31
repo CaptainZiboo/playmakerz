@@ -1,6 +1,6 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
-import { env } from "./env.js";
+import { config as env } from "dotenv";
 import postgres from "pg";
 
 env({
@@ -10,8 +10,6 @@ env({
 const { PG_URL_MAIN } = process.env;
 
 if (!PG_URL_MAIN) throw new Error("Missing database URL in .env file");
-
-console.log("URL", PG_URL_MAIN);
 
 const { Pool } = postgres;
 
