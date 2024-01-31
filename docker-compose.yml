@@ -2,43 +2,55 @@ version: '3'
 
 services:
 
-  postgres-main: 
+  postgres:
     image: postgres
-    restart: no
+    command: postgres -c 'max_connections=200'
     volumes:
-      - ./data/main:/var/lib/postgresql/data
+      - data_app:/var/lib/postgresql/data
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${PG_DB_MAIN}
+      POSTGRES_USER: ${PG_USER_MAIN}
+      POSTGRES_PASSWORD: ${PG_PASSWORD_MAIN}
     ports:
       - 5432:5432
-    environment:
-      - POSTGRES_DB=${PG_DB_MAIN}
-      - POSTGRES_USER=${PG_USER_MAIN}
-      - POSTGRES_PASSWORD=${PG_PASSWORD_MAIN}
 
-  postgres-auth: 
+  postgres_auth:
     image: postgres
-    restart: no
+    command: postgres -c 'max_connections=200'
     volumes:
-      - ./data/auth:/var/lib/postgresql/data
-    ports:
-      - 5489:5432
+      - data_auth:/var/lib/postgresql/data
+    env_file:
+      - .env
     environment:
-      - POSTGRES_DB=${PG_DB_AUTH}
-      - POSTGRES_USER=${PG_USER_AUTH}
-      - POSTGRES_PASSWORD=${PG_PASSWORD_AUTH}
-
-  adminer:
-    image: adminer
-    restart: no
+      POSTGRES_DB: ${PG_DB_AUTH}
+      POSTGRES_USER: ${PG_USER_AUTH}
+      POSTGRES_PASSWORD: ${PG_PASSWORD_AUTH}
     ports:
-      - 8080:8080
+      - 5436:5432
+    healthcheck:
+      test: "exit 0"
+    networks:
+      - auth_network
       
   keycloak:
     image: quay.io/keycloak/keycloak:23.0.4
-    restart: no
     command: start-dev
-    depends_on:
-      - postgres-auth
     env_file:
       - .env
     ports:
-      - 8081:8080
+      - 8890:8080
+    depends_on:
+      postgres_auth:
+        condition: service_healthy
+    networks:
+      - auth_network
+
+volumes:
+  data_app:
+  data_auth:
+
+networks:
+  auth_network:
+    driver: bridge

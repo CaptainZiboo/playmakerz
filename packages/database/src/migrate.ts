@@ -1,12 +1,22 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
+import { env } from "./env.js";
 import postgres from "pg";
-import "dotenv/config";
+
+env({
+  path: "../../.env",
+});
+
+const { PG_URL_MAIN } = process.env;
+
+if (!PG_URL_MAIN) throw new Error("Missing database URL in .env file");
+
+console.log("URL", PG_URL_MAIN);
 
 const { Pool } = postgres;
 
 const pool = new Pool({
-  connectionString: "postgres://root:password@localhost:5432/playmakerz",
+  connectionString: PG_URL_MAIN,
 });
 
 const database = drizzle(pool);
