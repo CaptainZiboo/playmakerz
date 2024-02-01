@@ -27,10 +27,11 @@ services:
       POSTGRES_DB: ${PG_DB_AUTH}
       POSTGRES_USER: ${PG_USER_AUTH}
       POSTGRES_PASSWORD: ${PG_PASSWORD_AUTH}
-    ports:
-      - 5436:5432
     healthcheck:
-      test: "exit 0"
+      test: pg_isready -U ${PG_USER_AUTH} -d ${PG_DB_AUTH}
+      interval: 10s
+      timeout: 5s
+      retries: 3
     networks:
       - auth_network
       
