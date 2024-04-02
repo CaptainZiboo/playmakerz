@@ -9,17 +9,17 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "prettier": "^3.1.0",
-    "tsx": "^4.7.0",
-    "turbo": "latest",
-    "nodemon": "^3.0.2",
-    "pkgroll": "^2.0.1"
+    "nodemon": "^3.1.0",
+    "pkgroll": "^2.0.2",
+    "prettier": "^3.2.5",
+    "tsx": "^4.7.1",
+    "turbo": "latest"
   },
   "packageManager": "pnpm@8.9.0",
   "engines": {
     "node": ">=18"
   },
   "dependencies": {
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.4.5"
   }
 }
