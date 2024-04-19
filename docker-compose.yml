@@ -1,57 +1,22 @@
-version: '3'
+version: "3"
 
 services:
-
-  postgres:
-    image: postgres
-    command: postgres -c 'max_connections=200'
-    volumes:
-      - data_app:/var/lib/postgresql/data
-    env_file:
-      - .env
-    environment:
-      POSTGRES_DB: ${PG_DB_MAIN}
-      POSTGRES_USER: ${PG_USER_MAIN}
-      POSTGRES_PASSWORD: ${PG_PASSWORD_MAIN}
+  surrealdb:
+    image: surrealdb/surrealdb:latest
     ports:
-      - 5432:5432
-
-  postgres_auth:
-    image: postgres
-    command: postgres -c 'max_connections=200'
-    volumes:
-      - data_auth:/var/lib/postgresql/data
+      - 8000:8000
     env_file:
       - .env
-    environment:
-      POSTGRES_DB: ${PG_DB_AUTH}
-      POSTGRES_USER: ${PG_USER_AUTH}
-      POSTGRES_PASSWORD: ${PG_PASSWORD_AUTH}
-    healthcheck:
-      test: pg_isready -U ${PG_USER_AUTH} -d ${PG_DB_AUTH}
-      interval: 10s
-      timeout: 5s
-      retries: 3
+    entrypoint:
+      - /surreal
+      - start
+      - --user
+      - admin
+      - --pass
+      - password
     networks:
-      - auth_network
-      
-  keycloak:
-    image: quay.io/keycloak/keycloak:23.0.4
-    command: start-dev
-    env_file:
-      - .env
-    ports:
-      - 8890:8080
-    depends_on:
-      postgres_auth:
-        condition: service_healthy
-    networks:
-      - auth_network
-
-volumes:
-  data_app:
-  data_auth:
+      - default
 
 networks:
-  auth_network:
+  default:
     driver: bridge
